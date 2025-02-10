@@ -45,9 +45,12 @@ Contenido: {$post->texto_descriptivo_sin_html}
 
 Instrucciones:
 1. Analiza cuidadosamente el contenido del post
-2. Crea un listado de un máximo de 5 etiquetas que se aplican al post y sean relevantes para su posicionamiento SEO
-3. Devuelve SOLAMENTE los nombres de las etiquetas, separados por coma
-4. NO agregues explicaciones adicionales
+2. Crea un listado de un máximo de 5 etiquetas que se aplican al post
+3. Las etiquetas deben ser relevantes para su posicionamiento SEO
+4. La etiqueta no puede superar las 3 palabras si fuera compuesta. No son válidas oraciones con más de 3 palabras.
+5. Devuelve SOLAMENTE los nombres de las etiquetas, separados por coma
+6. NO agregues explicaciones adicionales
+7. Si es etiqueta compuesta separala con espacios y no con guiones
 
 Ejemplo de formato de respuesta:
 etiqueta1, etiqueta2, etiqueta3
