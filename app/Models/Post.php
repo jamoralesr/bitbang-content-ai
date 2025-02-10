@@ -16,6 +16,7 @@ class Post extends Model
         'regional',
         'temas',
         'categorias',
+        'tags',
     ];
 
     protected function casts(): array
@@ -23,6 +24,7 @@ class Post extends Model
         return [
             'temas' => 'array',
             'categorias' => 'array',
+            'tags' => 'array',
         ];
     }
 
