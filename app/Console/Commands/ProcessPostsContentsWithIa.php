@@ -26,7 +26,7 @@ class ProcessPostsContentsWithIa extends Command
      */
     public function handle()
     {
-        // Implementa la lógica para procesar los cursos de postgrado con IA
+        // Implementa la lógica para procesar los posts con IA
         $posts = \App\Models\Post::all();
 
         $count = 0;
@@ -59,7 +59,7 @@ class ProcessPostsContentsWithIa extends Command
         $service = new AITextProcessingService();
         return $service->processWithAI(
             $prompt,
-            'Eres un escritor y periodista experto en sintetizar textos y crear extractos a partir de contenidos.'
+            'Eres un escritor y periodista experto en sintetizar textos y crear extractos a partir de contenidos, contratado por la Camara Chilena de la Construcción, organización que promueve el desarrollo, innovación y sustentabilidad en el sector construcción, apoyando el crecimiento en Chile.'
         );
     }
 }

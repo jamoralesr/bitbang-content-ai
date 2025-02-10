@@ -26,7 +26,7 @@ class ProcessPostsCategoriesWithIa extends Command
      */
     public function handle()
     {
-        // Implementa la lógica para procesar los cursos de postgrado con IA
+        // Implementa la lógica para procesar los posts con IA
         $posts = \App\Models\Post::all();
         $categories = \App\Models\Category::all();
 
@@ -71,9 +71,9 @@ EOT;
                 );
 
                 $count++;
-                $this->info("Se ha creado el resumen para el post {$post->id} de {$posts->count()}");
+                $this->info("Se han asignado las categorías para el post {$post->id} de {$posts->count()}");
             } else {
-                $this->info("El post {$post->id} ya tiene resumen, se omite.");
+                $this->info("El post {$post->id} ya tiene categorías, se omite.");
             }
         }
 
@@ -85,7 +85,7 @@ EOT;
         $service = new AITextProcessingService();
         return $service->processWithAI(
             $prompt,
-            'Eres un escritor y periodista experto en catalogar y curar textos.'
+            'Eres un escritor y periodista experto en catalogar y curar textos, , contratado por la Camara Chilena de la Construcción, organización que promueve el desarrollo, innovación y sustentabilidad en el sector construcción, apoyando el crecimiento en Chile.'
         );
     }
 }
