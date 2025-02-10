@@ -3,8 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use EchoLabs\Prism\Prism;
-use EchoLabs\Prism\Enums\Provider;
+use App\Services\AITextProcessingService;
 
 class ProcessPostsCategoriesWithIa extends Command
 {
@@ -42,7 +41,7 @@ class ProcessPostsCategoriesWithIa extends Command
                 })->join("\n");
 
                 $prompt = <<<EOT
-Eres un escritor y periodista experto en catalogar y curar textos. Necesito que me ayudes a categorizar el siguiente post usando las categorías disponibles.
+Necesito que me ayudes a categorizar el siguiente post usando las categorías disponibles.
 
 Post a categorizar:
 Título: {$post->title}
@@ -83,13 +82,10 @@ EOT;
 
     protected function processPrompts($prompt)
     {
-        $response = Prism::text()
-            ->using(Provider::Ollama, 'llama3.2:latest')
-            ->withSystemPrompt('Eres un escritor y periodista experto en catalogar y curar textos. Necesito que me ayudes a categorizar el siguiente post usando las categorías disponibles.')
-            ->withPrompt($prompt)
-            ->withClientOptions(['timeout' => 120])
-            ->generate();
-
-        return $response->text;
+        $service = new AITextProcessingService();
+        return $service->processWithAI(
+            $prompt,
+            'Eres un escritor y periodista experto en catalogar y curar textos.'
+        );
     }
 }
