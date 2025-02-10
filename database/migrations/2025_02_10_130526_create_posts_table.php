@@ -20,7 +20,7 @@ return new class extends Migration
             $table->longText('texto_descriptivo')->nullable();
             $table->longText('texto_descriptivo_sin_html')->nullable();
             $table->string('regional')->nullable();
-            $table->string('temas')->nullable();
+            $table->json('temas')->nullable();
             $table->json('categorias')->nullable();
             $table->timestamps();
         });
