@@ -36,24 +36,22 @@ class ProcessPostsTagsWithIa extends Command
             if (empty($post->tags)) {
 
                 $prompt = <<<EOT
-Necesito que me ayudes a etiquetar el siguiente post con el objetivo de mejorar su contenido y su accesibilidad SEO.
+Crea 5 keywords separadas por comas para copiar y pegar en el meta keywords del código html de la página web del post indicado mas adelante.
 
-Post a etiquetar:
+Sigue las siguientes instrucciones:
+- Analiza el contenido del post.
+- Crea máximo 5 keywords relevantes.
+- No uses frases o frases cortas.
+- No agregues introducciones, comentarios o títulos de ninguno tipo.
+- No uses caracteres especiales ni saltos de línea o similares como: /n, /r, /r/n, etc.
+- usa sólamente minúsculas.
+- separa las palabras con espacios y sin guiones.
+- Asegúrate de que tu respuesta final incluya solamente las keywords SEPARADAS POR COMAS.
+
+Post a analizar:
 Título: {$post->title}
 Resumen: {$post->resumen}
 Contenido: {$post->texto_descriptivo_sin_html}
-
-Instrucciones:
-1. Analiza cuidadosamente el contenido del post
-2. Crea un listado de un máximo de 5 etiquetas que se aplican al post
-3. Las etiquetas deben ser relevantes para su posicionamiento SEO
-4. La etiqueta no puede superar las 3 palabras si fuera compuesta. No son válidas oraciones con más de 3 palabras.
-5. Devuelve SOLAMENTE los nombres de las etiquetas, separados por coma
-6. NO agregues explicaciones adicionales
-7. Si es etiqueta compuesta separala con espacios y no con guiones
-
-Ejemplo de formato de respuesta:
-etiqueta1, etiqueta2, etiqueta3
 EOT;
 
                 $tags = $this->processPrompts($prompt);
@@ -65,13 +63,13 @@ EOT;
                 );
 
                 $count++;
-                $this->info("Se han creado tags para el post {$post->id} de {$posts->count()}");
+                $this->info("Se han creado keywords para el post {$post->id} de {$posts->count()}");
             } else {
-                $this->info("El post {$post->id} ya tiene tags, se omite.");
+                $this->info("El post {$post->id} ya tiene keywords, se omite.");
             }
         }
 
-        $this->info("Proceso finalizado. {$count} posts actualizados con sus tags");
+        $this->info("Proceso finalizado. {$count} posts actualizados con sus keywords");
     }
 
     protected function processPrompts($prompt)
@@ -79,7 +77,7 @@ EOT;
         $service = new AITextProcessingService();
         return $service->processWithAI(
             $prompt,
-            'Eres un experto SEO dedicado a la industria de la construcción en etiquetado de textos, contratado por la Camara Chilena de la Construcción, organización que promueve el desarrollo, innovación y sustentabilidad en el sector construcción, apoyando el crecimiento en Chile.'
+            'Eres un experto SEO en crear keywords basados en contenidos de textos, contratado por la Camara Chilena de la Construcción, organización que promueve el desarrollo, innovación y sustentabilidad en el sector construcción, apoyando el crecimiento en Chile.'
         );
     }
 }
